@@ -34,9 +34,18 @@ CMD ["npm", "run", "start:prod"]
 
 FROM node:22.14 AS development
 
-WORKDIR /usr/src/app
+RUN apt-get update && \
+    apt-get install -y wget gnupg && \
+    wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | apt-key add - && \
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/7.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-7.0.list && \
+    apt-get update && \
+    apt-get install -y mongodb-mongosh && \
+    apt-get clean
 
-RUN apk add --no-cache mongodb-tools
+RUN wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -O /usr/local/bin/wait-for-it.sh \
+    && chmod +x /usr/local/bin/wait-for-it.sh
+
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 COPY .eslintrc* ./
@@ -46,4 +55,4 @@ RUN npm install
 
 COPY . .
 
-CMD ["npm", "run", "start:dev"]
+# CMD ["npm", "run", "start:dev"]
