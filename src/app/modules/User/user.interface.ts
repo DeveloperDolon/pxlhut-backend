@@ -1,4 +1,5 @@
 import { Model } from 'mongoose';
+import { USER_ROLE } from './user.constant';
 
 export interface TUser {
   id: string;
@@ -23,3 +24,5 @@ export interface UserModel extends Model<TUser> {
     jwtIssuedTimeStamp: number,
   ): boolean;
 }
+
+export type TUserRole = typeof USER_ROLE;
