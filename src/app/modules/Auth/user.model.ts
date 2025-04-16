@@ -3,13 +3,14 @@ import { TUser, UserModel } from './user.interface';
 import { UserStatus } from './user.constant';
 import bcrypt from 'bcrypt';
 import config from '../../config';
+import { v4 as uuidv4 } from 'uuid';
 
 const userSchema = new Schema<TUser, UserModel>(
   {
     id: {
       type: String,
-      required: true,
       unique: true,
+      default: () => uuidv4(),
     },
     email: {
       type: String,
