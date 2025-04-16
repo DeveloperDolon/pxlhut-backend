@@ -4,6 +4,7 @@ import express, { Application, Request, Response } from 'express';
 import globalErrorHandler from './app/middleware/globalErrorHandler';
 import notFound from './app/middleware/notFound';
 import passport from 'passport';
+import './app/auth/passport';
 
 const app: Application = express();
 
