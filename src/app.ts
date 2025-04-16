@@ -5,6 +5,7 @@ import globalErrorHandler from './app/middleware/globalErrorHandler';
 import notFound from './app/middleware/notFound';
 import passport from 'passport';
 import './app/utiils/passport';
+import router from './app/routes';
 
 const app: Application = express();
 
@@ -28,6 +29,8 @@ app.get(
     });
   },
 );
+
+app.use('/', router);
 
 app.use(globalErrorHandler);
 
