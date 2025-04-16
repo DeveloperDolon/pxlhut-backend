@@ -1,10 +1,40 @@
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import express, { Application } from 'express';
+import { Server } from 'http';
+import mongoose from 'mongoose';
+import config from './app/config';
+import app from './app';
 
-const app: Application = express();
+let server: Server;
 
-app.use(express.json());
-app.use(cookieParser());
+async function main() {
+  try {
+    await mongoose.connect(config.database_url as string);
 
-app.use(cors({origin: 'http://localhost:3000', credentials: true}));
+    server = app.listen(config.port, () => {
+      console.log(`Server is running on port ${config.port}`);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+main();
+
+process.on('unhandledRejection', (error) => {
+  console.log('unhandledRejection is detected, shutting down...', error);
+  if (server) {
+    server.close(() => {
+      console.log('Server is closed');
+      process.exit(1);
+    });
+  }
+});
+
+process.on('uncaughtException', (error) => {
+  console.log('uncaughtException is detected, shutting down...', error);
+  if (server) {
+    server.close(() => {
+      console.log('Server is closed');
+      process.exit(1);
+    });
+  }
+});

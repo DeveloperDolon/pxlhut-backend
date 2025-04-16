@@ -22,6 +22,7 @@ services:
     depends_on:
       mongodb:
         condition: service_healthy
+    command: npm run start:dev
 
   mongodb:
     container_name: mongodb
