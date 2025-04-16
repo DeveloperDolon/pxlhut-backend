@@ -16,6 +16,20 @@ const changeStatusValidation = z.object({
   }),
 });
 
+const createUserValidationSchema = z.object({
+  body: z.object({
+    name: z.string().max(30),
+    email: z.string().email(),
+    needsPasswordChange: z.boolean().default(true),
+    passwordChangedAt: z.date().optional(),
+    password: z.string().max(20),
+    status: z
+      .enum(['active', 'inactive', 'in-progress'])
+      .default('in-progress'),
+    role: z.enum(['user', 'admin', 'superuser']).default('user'),
+  }),
+});
+
 export const UserValidation = {
   userValidationSchema,
   changeStatusValidation,
