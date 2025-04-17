@@ -5,8 +5,8 @@ import { PaymantService } from './payment.service';
 
 const createPayment = catchAsync(async (req, res) => {
   const { products } = req.body;
-
-  const result = await PaymantService.stripPayment(products);
+  const userId = (req?.user as { userId: string })?.userId;
+  const result = await PaymantService.stripPayment(products, userId);
 
   return sendRespnse(res, {
     statusCode: httpStatus.OK,

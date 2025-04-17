@@ -1,9 +1,10 @@
 import { TProduct } from './paytment.interface';
 import config from '../../config';
+import { Payment } from './payment.model';
 
 const stripe = require('stripe')(config.strip_secret_key);
 
-const stripPayment = async (products: TProduct[]) => {
+const stripPayment = async (products: TProduct[], user_id: string) => {
   const lineItems = products.map((product: TProduct) => ({
     price_data: {
       currency: 'inr',
@@ -23,7 +24,13 @@ const stripPayment = async (products: TProduct[]) => {
     cancel_url: 'https://www.pxlhut.com',
   });
 
-  return session;
+  const payment = await Payment.create({
+    user_id,
+    price: session?.amount_total,
+    transaction_id: session?.id,
+  });
+
+  return payment;
 };
 
 export const PaymantService = { stripPayment };
