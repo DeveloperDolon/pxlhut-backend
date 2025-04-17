@@ -44,4 +44,17 @@ const login = catchAsync(async (req, res) => {
   });
 });
 
-export const UserController = { register, login };
+const me = catchAsync(async (req, res) => {
+  const userId = (req?.user as { userId: string })?.userId;
+
+  const result = await UserService.fetchUserData(userId);
+
+  return sendRespnse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Me data fetched successful!',
+    data: result,
+  });
+});
+
+export const UserController = { register, login, me };

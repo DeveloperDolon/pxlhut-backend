@@ -57,4 +57,10 @@ const loginUser = async (payload: TLoginUser) => {
   };
 };
 
-export const UserService = { createUserIntoDB, loginUser };
+const fetchUserData = async (id: string) => {
+  const user = await User.findOne({id});
+
+  return user;
+};
+
+export const UserService = { createUserIntoDB, loginUser, fetchUserData };
