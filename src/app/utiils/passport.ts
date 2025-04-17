@@ -11,7 +11,7 @@ const cookieExtractor = (req: Request) => {
   let jwt = null;
 
   if (req && req.cookies) {
-    jwt = req.cookies['jwt'];
+    jwt = req.cookies['accessToken'];
   }
 
   return jwt;
