@@ -6,8 +6,16 @@ import notFound from './app/middleware/notFound';
 import passport from 'passport';
 import './app/utiils/passport';
 import router from './app/routes';
+import { rateLimit } from 'express-rate-limit';
 
 const app: Application = express();
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 100,
+  standardHeaders: 'draft-8',
+  legacyHeaders: false,
+});
 
 app.use(express.json());
 app.use(cookieParser());
@@ -15,6 +23,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+
+app.use(limiter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello world from pxlhut backend!');
