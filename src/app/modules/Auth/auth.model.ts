@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
-import { TUser, UserModel } from './user.interface';
-import { UserStatus } from './user.constant';
+import { TUser, UserModel } from './auth.interface';
+import { UserStatus } from './auth.constant';
 import bcrypt from 'bcrypt';
 import config from '../../config';
 import { v4 as uuidv4 } from 'uuid';

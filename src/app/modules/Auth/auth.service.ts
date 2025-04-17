@@ -1,8 +1,8 @@
 import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
-import { TLoginUser, TUser } from './user.interface';
-import { User } from './user.model';
-import { createToken } from './user.utils';
+import { TLoginUser, TUser } from './auth.interface';
+import { User } from './auth.model';
+import { createToken } from './auth.utils';
 import config from '../../config';
 
 const createUserIntoDB = async (payload: TUser) => {

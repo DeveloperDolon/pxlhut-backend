@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { USER_ROLE } from './user.constant';
+import { USER_ROLE } from './auth.constant';
 
 export interface TUser {
   id: string;
