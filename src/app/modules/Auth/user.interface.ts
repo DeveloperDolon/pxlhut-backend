@@ -13,8 +13,13 @@ export interface TUser {
   isDeleted: boolean;
 }
 
+export type TLoginUser = {
+  email: string;
+  password: string
+}
+
 export interface UserModel extends Model<TUser> {
-  isUserExistByCustomId(id: string): Promise<TUser | null>;
+  isUserExistByEmail(email: string): Promise<TUser | null>;
   isPasswordMatched(
     plainTextPassword: string,
     hashedPassword: string,
@@ -24,5 +29,7 @@ export interface UserModel extends Model<TUser> {
     jwtIssuedTimeStamp: number,
   ): boolean;
 }
+
+
 
 export type TUserRole = typeof USER_ROLE;
