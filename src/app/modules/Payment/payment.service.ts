@@ -19,8 +19,8 @@ const stripPayment = async (products: TProduct[]) => {
     payment_method_types: ['card'],
     line_items: lineItems,
     mode: 'payment',
-    success_url: '',
-    cancel_url: '',
+    success_url: 'https://www.pxlhut.com',
+    cancel_url: 'https://www.pxlhut.com',
   });
 
   return session;
