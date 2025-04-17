@@ -6,11 +6,11 @@ const stripe = require('stripe')(config.strip_secret_key);
 const stripPayment = async (products: TProduct[]) => {
   const lineItems = products.map((product: TProduct) => ({
     price_data: {
-      currency: 'usd',
+      currency: 'inr',
       product_data: {
         name: product.name,
       },
-      unit_amount: product.price * 100,
+      unit_amount: product.price,
     },
     quantity: product.quantity,
   }));
